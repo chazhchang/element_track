@@ -26,20 +26,32 @@ while True:
     if 'btn-disabled' in add_to_cart_but.get_attribute("class"):
         time.sleep(5)
         driver.refresh()
-
     else:
+        break
 
-        # add_on_checkbox = WebDriverWait(driver, 10).until(
-        #         EC.presence_of_element_located((By.ID, 'add-on-selector-add-on-item-checkbox')))
-        # add_on_checkbox.click()
+# add_on_checkbox = WebDriverWait(driver, 10).until(
+#         EC.presence_of_element_located((By.ID, 'add-on-selector-add-on-item-checkbox')))
+# add_on_checkbox.click()
 
-        add_to_cart_but = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
-        add_to_cart_but.click()
+add_to_cart_but = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
+add_to_cart_but.click()
 
-        time.sleep(1)
+print('1st Add to Cart button clicked. In Queue')
+time.sleep(5)
 
-        add_to_cart_but = WebDriverWait(driver, 1200).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
-        add_to_cart_but.click()
+while True:
+    add_to_cart_but = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+    please_wait_enabled = add_to_cart_but.get_attribute('aria-describedby')
 
+    if please_wait_enabled:
+        time.sleep(0.1)
+    else:
+        break
+
+add_to_cart_but = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+add_to_cart_but.click()
+
+print('2nd Add to Cart button clicked. In Queue')
