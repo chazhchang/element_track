@@ -35,17 +35,19 @@ while True:
 
 add_to_cart_but = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
+print(add_to_cart_but.value_of_css_property('background-color'))
 add_to_cart_but.click()
 
-print('1st Add to Cart button clicked. In Queue')
+print('1st Add to Cart button clicked. In Queue.', datetime.datetime.now())
 time.sleep(5)
+print(add_to_cart_but.value_of_css_property('background-color'))
 
 while True:
-    add_to_cart_but = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
-    please_wait_enabled = add_to_cart_but.get_attribute('aria-describedby')
+    # add_to_cart_but = WebDriverWait(driver, 10).until(
+    #         EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+    please_wait_enabled = add_to_cart_but.value_of_css_property('background-color')
 
-    if please_wait_enabled:
+    if please_wait_enabled == 'rgb(197, 203, 213)':
         time.sleep(0.1)
     else:
         break
@@ -54,4 +56,5 @@ add_to_cart_but = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
 add_to_cart_but.click()
 
-print('2nd Add to Cart button clicked. In Queue')
+print('2nd Add to Cart button clicked. Item added to Cart', datetime.datetime.now())
+print(add_to_cart_but.value_of_css_property('background-color'))
