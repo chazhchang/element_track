@@ -7,7 +7,7 @@ from selenium.webdriver.firefox.options import Options
 import datetime
 import time
 
-firefox_profile_path = r'C:\Users\WebUser\AppData\Roaming\Mozilla\Firefox\Profiles\7yqdk170.default'
+firefox_profile_path = r'C:\Users\Justin\AppData\Roaming\Mozilla\Firefox\Profiles\j4e948dv.default-release'
 url = 'https://www.bestbuy.com/site/amd-ryzen-5-5600x-4th-gen-6-core-12-threads-unlocked-desktop-processor-with-wraith-stealth-cooler/6438943.p?skuId=6438943'
 # url = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3060-ti-8gb-gddr6-pci-express-4-0-graphics-card-steel-and-black/6439402.p?skuId=6439402'
 # url = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3070-8gb-gddr6-pci-express-4-0-graphics-card-dark-platinum-and-black/6429442.p?skuId=6429442'
