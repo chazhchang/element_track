@@ -20,11 +20,11 @@ driver = webdriver.Firefox(firefox_profile=profile)
 driver.get(url)
 
 while True:
-    add_to_cart_but = WebDriverWait(driver, 10).until(
+    add_to_cart_but = WebDriverWait(driver, 3600).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
     
     if 'btn-disabled' in add_to_cart_but.get_attribute("class"):
-        time.sleep(5)
+        time.sleep(2)
         driver.refresh()
     else:
         break
@@ -33,7 +33,7 @@ while True:
 #         EC.presence_of_element_located((By.ID, 'add-on-selector-add-on-item-checkbox')))
 # add_on_checkbox.click()
 
-add_to_cart_but = WebDriverWait(driver, 10).until(
+add_to_cart_but = WebDriverWait(driver, 3600).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
 print(add_to_cart_but.value_of_css_property('background-color'))
 add_to_cart_but.click()
@@ -48,11 +48,11 @@ while True:
     please_wait_enabled = add_to_cart_but.value_of_css_property('background-color')
 
     if please_wait_enabled == 'rgb(197, 203, 213)':
-        time.sleep(0.1)
+        time.sleep(0.05)
     else:
         break
 
-add_to_cart_but = WebDriverWait(driver, 10).until(
+add_to_cart_but = WebDriverWait(driver, 3600).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
 add_to_cart_but.click()
 
