@@ -6,7 +6,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
 import datetime
 import time
+import winsound
 
+ALARM_BEEP_DURATION = 1000  # milliseconds
+ALARM_FREQ = 440  # Hz
+ALARM_DURATION = 5  # 2n sec
 firefox_profile_path = r'C:\Users\Justin\AppData\Roaming\Mozilla\Firefox\Profiles\j4e948dv.default-release'
 # url = 'https://www.bestbuy.com/site/amd-ryzen-5-5600x-4th-gen-6-core-12-threads-unlocked-desktop-processor-with-wraith-stealth-cooler/6438943.p?skuId=6438943'
 url = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3060-ti-8gb-gddr6-pci-express-4-0-graphics-card-steel-and-black/6439402.p?skuId=6439402'
@@ -61,3 +65,7 @@ add_to_cart_but.click()
 
 print('2nd Add to Cart button clicked. Item added to Cart', datetime.datetime.now())
 print(add_to_cart_but.value_of_css_property('background-color'))
+
+for _ in range(ALARM_DURATION):
+    winsound.Beep(ALARM_FREQ, ALARM_BEEP_DURATION)
+    time.sleep(1)
