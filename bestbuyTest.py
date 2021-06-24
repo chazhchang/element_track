@@ -1,4 +1,3 @@
-# from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -25,47 +24,58 @@ profile = webdriver.FirefoxProfile(firefox_profile_path)
 driver = webdriver.Firefox(firefox_profile=profile)
 
 driver.get(url)
+try:
+    while True:
+        add_to_cart_but = WebDriverWait(driver, 3600).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+        
+        if 'btn-disabled' in add_to_cart_but.get_attribute("class"):
+            time.sleep(2)
+            driver.refresh()
+        else:
+            break
 
-while True:
+    # add_on_checkbox = WebDriverWait(driver, 10).until(
+    #         EC.presence_of_element_located((By.ID, 'add-on-selector-add-on-item-checkbox')))
+    # add_on_checkbox.click()
+
     add_to_cart_but = WebDriverWait(driver, 3600).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
-    
-    if 'btn-disabled' in add_to_cart_but.get_attribute("class"):
-        time.sleep(2)
-        driver.refresh()
-    else:
-        break
+            EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
+    print(add_to_cart_but.value_of_css_property('background-color'))
+    add_to_cart_but.click()
 
-# add_on_checkbox = WebDriverWait(driver, 10).until(
-#         EC.presence_of_element_located((By.ID, 'add-on-selector-add-on-item-checkbox')))
-# add_on_checkbox.click()
+    print('1st Add to Cart button clicked. In Queue.', datetime.datetime.now())
+    for _ in range(3):
+        winsound.Beep(ALARM_FREQ, ALARM_BEEP_DURATION)
+        time.sleep(1)
+    print(add_to_cart_but.value_of_css_property('background-color'))
 
-add_to_cart_but = WebDriverWait(driver, 3600).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, '.add-to-cart-button')))
-print(add_to_cart_but.value_of_css_property('background-color'))
-add_to_cart_but.click()
+    while True:
+        # add_to_cart_but = WebDriverWait(driver, 10).until(
+        #         EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+        please_wait_enabled = add_to_cart_but.value_of_css_property('background-color')
 
-print('1st Add to Cart button clicked. In Queue.', datetime.datetime.now())
-time.sleep(5)
-print(add_to_cart_but.value_of_css_property('background-color'))
+        if please_wait_enabled == 'rgb(197, 203, 213)':
+            time.sleep(0.05)
+        else:
+            break
 
-while True:
-    # add_to_cart_but = WebDriverWait(driver, 10).until(
-    #         EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
-    please_wait_enabled = add_to_cart_but.value_of_css_property('background-color')
+    add_to_cart_but = WebDriverWait(driver, 3600).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
+    add_to_cart_but.click()
 
-    if please_wait_enabled == 'rgb(197, 203, 213)':
-        time.sleep(0.05)
-    else:
-        break
+    print('2nd Add to Cart button clicked. Item added to Cart', datetime.datetime.now())
+    print(add_to_cart_but.value_of_css_property('background-color'))
 
-add_to_cart_but = WebDriverWait(driver, 3600).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, '.add-to-cart-button')))
-add_to_cart_but.click()
+    for _ in range(ALARM_DURATION):
+        winsound.Beep(ALARM_FREQ, ALARM_BEEP_DURATION)
+        time.sleep(1)
 
-print('2nd Add to Cart button clicked. Item added to Cart', datetime.datetime.now())
-print(add_to_cart_but.value_of_css_property('background-color'))
+except KeyboardInterrupt:
+    print('stopping')
 
-for _ in range(ALARM_DURATION):
-    winsound.Beep(ALARM_FREQ, ALARM_BEEP_DURATION)
-    time.sleep(1)
+except Exception as e:
+    print(e)
+    for _ in range(10):
+        winsound.Beep(ALARM_FREQ, 500)
+        time.sleep(0.5)
